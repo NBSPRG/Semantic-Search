@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mini ML Similarity Tester</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar" aria-label="Service status">
+        <div>
+          <h1>Mini ML Similarity Tester</h1>
+          <p>Ingest text, search similar records, and inspect scores.</p>
+        </div>
+        <div class="status" id="healthStatus">
+          <span class="dot"></span>
+          <span>Checking</span>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <form class="panel" id="ingestForm">
+          <div class="panelHeader">
+            <h2>Ingest</h2>
+          </div>
+          <label for="ingestText">Text</label>
+          <textarea
+            id="ingestText"
+            name="text"
+            rows="7"
+            maxlength="10000"
+            placeholder="B2B fintech lead generation"
+            required
+          ></textarea>
+          <label for="metadata">Metadata JSON</label>
+          <textarea
+            id="metadata"
+            name="metadata"
+            rows="4"
+            placeholder='{"source":"manual","user_id":"u123"}'
+          ></textarea>
+          <div class="formActions">
+            <button type="submit">Store</button>
+          </div>
+          <p class="message" id="ingestMessage" aria-live="polite"></p>
+        </form>
+
+        <form class="panel" id="searchForm">
+          <div class="panelHeader">
+            <h2>Search</h2>
+          </div>
+          <label for="query">Query</label>
+          <textarea
+            id="query"
+            name="query"
+            rows="5"
+            maxlength="10000"
+            placeholder="fintech SaaS companies"
+            required
+          ></textarea>
+          <div class="fieldRow">
+            <label for="topK">Top K</label>
+            <input id="topK" name="topK" type="number" min="1" max="50" value="5" />
+          </div>
+          <div class="formActions">
+            <button type="submit">Find</button>
+          </div>
+          <p class="message" id="searchMessage" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="resultsSection" aria-label="Search results">
+        <div class="sectionHeader">
+          <h2>Results</h2>
+          <button class="ghost" id="clearResults" type="button">Clear</button>
+        </div>
+        <div class="results" id="results">
+          <p class="empty">Search results will appear here.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
