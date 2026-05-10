@@ -54,6 +54,8 @@ tests/
   test_embedder.py
   test_ingest.py
   test_search.py
+scripts/
+  seed_data.py
 colab_training.py
 docker-compose.yml
 Dockerfile
@@ -111,6 +113,50 @@ The database migration in `app/db/migrations/init.sql` creates:
 ## How To Test In The UI
 
 Open `http://127.0.0.1:8000`, then insert the following sample records one by one.
+
+You can also seed records automatically with the script in the next section.
+
+## Seed Demo Data
+
+The seed script calls the public API, so it works with both storage modes:
+
+- `STORAGE_BACKEND=memory`
+- `STORAGE_BACKEND=postgres`
+
+Start the app first:
+
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload
+```
+
+Then seed the built-in sample dataset:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\seed_data.py --source sample --limit 30
+```
+
+The sample dataset has curated records across fintech, healthcare, real estate, restaurants, ecommerce, HR, legal, education, support, and travel.
+
+For a larger ecommerce demo, install the optional Hugging Face datasets package:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install datasets
+```
+
+Then seed H&M ecommerce product records:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\seed_data.py --source hm --limit 500
+```
+
+Recommended demo size:
+
+```text
+30-50 records for interview demo
+200-1000 records for a richer local test
+```
+
+Millions of records are not needed for functional evaluation. Use pgvector and a dedicated benchmark script if the goal is scale testing.
 
 ### Sample Records
 
